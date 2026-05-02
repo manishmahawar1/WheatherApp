@@ -25,9 +25,9 @@ app.use(
 
 // ================= ROUTES =================
 
-app.get("/", (req, res)=>{
-  res.send("server running.")
-})
+app.get("/", (req, res) => {
+  res.send("server running.");
+});
 
 app.use("/api/auth", authRoutes);
 
@@ -40,6 +40,7 @@ app.use((req, res, next) => {
 
   res.sendFile(path.resolve(process.cwd(), "client/dist/index.html"));
 });
+
 // ================ GLOBAL ERROR ===============
 
 app.use((err, req, res, next) => {
@@ -57,7 +58,6 @@ app.use((err, req, res, next) => {
 // ================= DATABASE =================
 
 const PORT = process.env.PORT || 3000;
-
 
 mongoose
   .connect(process.env.MONGO_URI)
