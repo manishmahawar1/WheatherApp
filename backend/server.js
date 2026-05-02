@@ -31,12 +31,11 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 
-// static frontend
+
 app.use(express.static(path.join(process.cwd(), "client/dist")));
 
-// SPA fallback (CRITICAL)
-app.use((req, res, next) => {
-  if (req.path.startsWith("/api")) return next();
+app.use((req, res) => {
+  if (req.path.startsWith("/api")) return;
 
   res.sendFile(path.resolve(process.cwd(), "client/dist/index.html"));
 });
