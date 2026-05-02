@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-
+import path from "path";
 import authRoutes from "./routes/authRoutes.js";
 
 dotenv.config();
@@ -31,6 +31,13 @@ app.get("/", (req, res)=>{
 
 app.use("/api/auth", authRoutes);
 
+app.use(express.static(path.join(process.cwd(), "client/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(process.cwd(), "client/dist/index.html"));
+});
+
+
 // ================ GLOBAL ERROR ===============
 
 app.use((err, req, res, next) => {
@@ -48,7 +55,6 @@ app.use((err, req, res, next) => {
 // ================= DATABASE =================
 
 const PORT = process.env.PORT || 3000;
-
 
 
 mongoose
