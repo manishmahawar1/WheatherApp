@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import AppLayout from "../components/AppLayout";
 import useAuthStore from "../store/authStore";
 import toast from "react-hot-toast";
+import validator from "validator";
+import { useNavigate } from "react-router-dom";
 
 function Settings() {
   const { user, logout, updateUser } = useAuthStore();
-
+  const navigate = useNavigate();
   const [username, setUsername] = useState(user?.username || "");
   const [email, setEmail] = useState(user?.email || "");
 
@@ -16,6 +18,10 @@ function Settings() {
         return toast.error("Username or email required");
       }
 
+      if (!validator.isEmail(email)) {
+        return toast.error("Invalid email format");
+      }
+
       await updateUser({ username, email });
 
       toast.success("Profile updated!");
@@ -23,6 +29,12 @@ function Settings() {
       console.log(err);
       toast.error("Update failed");
     }
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/");
+    toast.success("Logout successful.");
   };
 
   return (
@@ -65,7 +77,7 @@ function Settings() {
         <div className="bg-white/10 p-8 rounded-3xl mt-6">
           <h2 className="text-2xl font-bold mb-6">Account</h2>
 
-          <button onClick={logout} className="px-6 py-3 bg-red-500 rounded-xl">
+          <button onClick={handleLogout} className="px-6 py-3 bg-red-500 rounded-xl">
             Logout
           </button>
         </div>

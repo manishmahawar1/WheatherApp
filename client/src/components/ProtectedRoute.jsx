@@ -6,7 +6,8 @@ import useAuthStore from "../store/authStore.js";
 
 export default function ProtectedRoute({ children }) {
   const { user, checkingAuth } = useAuthStore();
-
+  //  console.log(user);
+   
   if (checkingAuth) {
     return <Loader />;
   }

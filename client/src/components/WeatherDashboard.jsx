@@ -7,6 +7,9 @@ function WeatherDashboard() {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
   const [animateKey, setAnimateKey] = useState(0);
+  const [loading, setLoading] = useState(false);
+
+  
 
   const myAPiKey = import.meta.env.VITE_WEATHER_API_KEY;
 
@@ -25,7 +28,11 @@ function WeatherDashboard() {
       return;
     }
 
+
     try {
+
+      setLoading(true); // start loader
+
       const res = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${myAPiKey}&units=metric`,
       );
@@ -33,9 +40,11 @@ function WeatherDashboard() {
       setWeather(res.data);
       setAnimateKey((prev) => prev + 1);
       localStorage.setItem("weatherData", JSON.stringify(res.data));
+      setLoading(false) // loader closed
     } catch (error) {
       console.log(error);
       toast.error("city not found!");
+      setLoading(false)
     }
   };
 
@@ -48,6 +57,25 @@ function WeatherDashboard() {
     if (condition === "Thunderstorm") return "⛈️";
     return "🌤️";
   };
+
+  if (loading) {
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-[#020817] z-50">
+      
+      {/* simple animated loader */}
+      <div className="flex flex-col items-center gap-4">
+        
+        <div className="w-16 h-16 border-4 border-violet-500 border-t-transparent rounded-full animate-spin"></div>
+
+        <p className="text-white text-lg animate-pulse">
+          Fetching Weather...
+        </p>
+
+      </div>
+
+    </div>
+  );
+}
 
   return (
     <div

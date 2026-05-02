@@ -10,7 +10,7 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Stats from "./pages/Stats";
 import Settings from "./pages/Settings";
-import Location from "./pages/Location";
+// import Location from "./pages/Location";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -52,14 +52,14 @@ function App() {
           }
         />
 
-        <Route
+        {/* <Route
           path="/location"
           element={
             <ProtectedRoute>
               <Location />
             </ProtectedRoute>
           }
-        />
+        /> */}
 
         <Route
           path="/settings"

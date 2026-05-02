@@ -14,10 +14,10 @@ export default function Sidebar() {
       path: "/stats",
     },
 
-    {
-      icon: "📍",
-      path: "/location",
-    },
+    // {
+    //   icon: "📍",
+    //   path: "/location",
+    // },
 
     {
       icon: "⚙️",

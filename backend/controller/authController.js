@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import User from "../models/User.js";
 import generateToken from "../utils/generateToken.js";
+import validator from "validator";
 
 // ================= SIGNUP =================
 
@@ -11,6 +12,12 @@ export const signup = async (req, res) => {
     if (!username || !email || !password) {
       return res.status(400).json({
         message: "All fields are required",
+      });
+    }
+
+    if (!validator.isEmail(email)) {
+      return res.status(400).json({
+        message: "Invalid email format",
       });
     }
 
@@ -60,6 +67,11 @@ export const login = async (req, res) => {
         message: "All fields are required",
       });
     }
+    if (!validator.isEmail(email)) {
+      return res.status(400).json({
+        message: "Invalid email format",
+      });
+    }
 
     const user = await User.findOne({ email });
 
@@ -104,6 +116,12 @@ export const updateUser = async (req, res) => {
     if (!username && !email) {
       return res.status(400).json({
         message: "Nothing to update",
+      });
+    }
+
+    if (email && !validator.isEmail(email)) {
+      return res.status(400).json({
+        message: "Invalid email format",
       });
     }
 

@@ -111,12 +111,12 @@ export default function Navbar() {
                 📊 Stats
               </button>
 
-              <button
+              {/* <button
                 onClick={() => navigate("/location")}
                 className="w-full text-left px-4 py-3 rounded-2xl bg-white/5 hover:bg-white/10 transition"
               >
                 📍 Location
-              </button>
+              </button> */}
 
               <button
                 onClick={() => navigate("/settings")}
