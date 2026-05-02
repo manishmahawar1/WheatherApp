@@ -33,10 +33,9 @@ app.use("/api/auth", authRoutes);
 
 app.use(express.static(path.join(process.cwd(), "client/dist")));
 
-app.get("*", (req, res) => {
+app.get("/*", (req, res) => {
   res.sendFile(path.resolve(process.cwd(), "client/dist/index.html"));
 });
-
 
 // ================ GLOBAL ERROR ===============
 
