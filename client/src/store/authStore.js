@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import api from "../services/api.js";
 
+
 const useAuthStore = create((set) => ({
   user: null,
   loading: false,
@@ -24,6 +25,9 @@ const useAuthStore = create((set) => ({
       throw error;
     }
   },
+
+  
+  
 
   login: async (formData) => {
     try {
