@@ -94,6 +94,44 @@ export const login = async (req, res) => {
   }
 };
 
+// ============= UPDATE USER =====================
+
+export const updateUser = async (req, res) => {
+  try {
+    const userId = req.userId;
+
+    const { username, email } = req.body;
+    if (!username && !email) {
+      return res.status(400).json({
+        message: "Nothing to update",
+      });
+    }
+
+    const user = await User.findByIdAndUpdate(
+      userId,
+      {
+        $set: {
+          ...(username && { username }),
+          ...(email && { email }),
+        },
+      },
+      { returnDocument: "after" },
+    ).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({
+      message: "Profile updated successfully",
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 // ================= LOGOUT =================
 
 export const logout = async (req, res) => {

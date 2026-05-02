@@ -50,6 +50,24 @@ const useAuthStore = create((set) => ({
     set({ user: null });
   },
 
+  updateUser: async (data) => {
+    try {
+      set({ loading: true });
+
+      const res = await api.patch("/auth/user", data);
+
+      set({
+        user: res.data.user,
+        loading: false,
+      });
+
+      return res.data;
+    } catch (error) {
+      set({ loading: false });
+      throw error;
+    }
+  },
+
   checkAuth: async () => {
     try {
       const res = await api.get("/auth/me");

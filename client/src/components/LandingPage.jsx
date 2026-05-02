@@ -10,7 +10,7 @@ function LandingPage() {
       className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden"
       style={{
         backgroundImage:
-          "url('https://openweathermap.org//payload/api/media/file/pexels-brett-sayles-1431822_1.jpg')",
+          "url('/wheather-bg.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}

@@ -7,7 +7,7 @@ function AppLayout({ children }) {
       className="min-h-screen relative overflow-hidden text-white"
       style={{
         backgroundImage:
-          "url('https://openweathermap.org//payload/api/media/file/pexels-brett-sayles-1431822_1.jpg')",
+          "url('/wheather.bg.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}

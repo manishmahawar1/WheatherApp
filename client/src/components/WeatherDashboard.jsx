@@ -6,8 +6,9 @@ import toast from "react-hot-toast";
 function WeatherDashboard() {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
+  const [animateKey, setAnimateKey] = useState(0);
 
-  const myAPiKey = "d42347d18a49329bb77974cff183b944";
+  const myAPiKey = import.meta.env.VITE_WEATHER_API_KEY;
 
   useEffect(() => {
     const savedWeather = localStorage.getItem("weatherData");
@@ -30,6 +31,7 @@ function WeatherDashboard() {
       );
 
       setWeather(res.data);
+      setAnimateKey((prev) => prev + 1);
       localStorage.setItem("weatherData", JSON.stringify(res.data));
     } catch (error) {
       console.log(error);
@@ -132,11 +134,14 @@ function WeatherDashboard() {
 
           {/* WEATHER */}
           {weather && (
-            <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mt-8">
+            <div
+              key={animateKey}
+              className="grid grid-cols-1 xl:grid-cols-3 gap-6 mt-8  weather-card"
+            >
               {/* LEFT */}
               <div className="xl:col-span-2 space-y-6">
                 {/* MAIN CARD */}
-                <div className="bg-white/10 backdrop-blur-2xl border border-white/10 rounded-[35px] p-8 shadow-2xl">
+                <div className="weather-card delay-1 bg-white/10 backdrop-blur-2xl border border-white/10 rounded-[35px] p-8 shadow-2xl">
                   <div className="flex flex-col lg:flex-row justify-between items-center gap-8">
                     {/* LEFT INFO */}
                     <div>
@@ -184,7 +189,7 @@ function WeatherDashboard() {
                 </div>
 
                 {/* HIGHLIGHTS */}
-                <div className="bg-white/10 backdrop-blur-2xl border border-white/10 rounded-[35px] p-6">
+                <div className="weather-card delay-2  bg-white/10 backdrop-blur-2xl border border-white/10 rounded-[35px] p-6">
                   <h2 className="text-2xl font-semibold mb-6">
                     Today's Highlights
                   </h2>
