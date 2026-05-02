@@ -25,6 +25,10 @@ app.use(
 
 // ================= ROUTES =================
 
+app.get("/", (req, res)=>{
+  res.send("server running.")
+})
+
 app.use("/api/auth", authRoutes);
 
 // ================ GLOBAL ERROR ===============
