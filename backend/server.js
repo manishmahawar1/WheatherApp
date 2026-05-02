@@ -23,8 +23,6 @@ app.use(
   }),
 );
 
-
-
 // ================= ROUTES =================
 
 app.get("/", (req, res) => {
@@ -32,17 +30,18 @@ app.get("/", (req, res) => {
 });
 
 
-const clientPath = path.join(process.cwd(), "client/dist");
 app.use("/api/auth", authRoutes);
 
-
-// serve static frontend
+const clientPath = path.join(process.cwd(), "client/dist");
 app.use(express.static(clientPath));
 
-// SPA fallback (IMPORTANT)
-app.get("*", (req, res) => {
+// SPA fallback SAFE (NO * OR /*)
+app.use((req, res, next) => {
+  if (req.path.startsWith("/api")) return next();
+
   res.sendFile(path.join(clientPath, "index.html"));
 });
+
 // ================ GLOBAL ERROR ===============
 
 app.use((err, req, res, next) => {
