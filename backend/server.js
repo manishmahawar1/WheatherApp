@@ -31,12 +31,15 @@ app.get("/", (req, res)=>{
 
 app.use("/api/auth", authRoutes);
 
+// static files
 app.use(express.static(path.join(process.cwd(), "client/dist")));
 
-app.get("/*", (req, res) => {
+// SPA fallback (SAFE VERSION)
+app.use((req, res, next) => {
+  if (req.path.startsWith("/api")) return next();
+
   res.sendFile(path.resolve(process.cwd(), "client/dist/index.html"));
 });
-
 // ================ GLOBAL ERROR ===============
 
 app.use((err, req, res, next) => {
