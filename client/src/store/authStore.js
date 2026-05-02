@@ -10,7 +10,7 @@ const useAuthStore = create((set) => ({
     try {
       set({ loading: true });
 
-      const res = await api.post("/auth/signup", formData);
+      const res = await api.post("/api/auth/signup", formData);
 
       set({
         user: res.data,
@@ -29,7 +29,7 @@ const useAuthStore = create((set) => ({
     try {
       set({ loading: true });
 
-      const res = await api.post("/auth/login", formData);
+      const res = await api.post("/api/auth/login", formData);
 
       set({
         user: res.data,
@@ -45,7 +45,7 @@ const useAuthStore = create((set) => ({
   },
 
   logout: async () => {
-    await api.post("/auth/logout");
+    await api.post("/api/auth/logout");
 
     set({ user: null });
   },
@@ -54,7 +54,7 @@ const useAuthStore = create((set) => ({
     try {
       set({ loading: true });
 
-      const res = await api.patch("/auth/user", data);
+      const res = await api.patch("/api/auth/user", data);
 
       set({
         user: res.data.user,
@@ -70,7 +70,7 @@ const useAuthStore = create((set) => ({
 
   checkAuth: async () => {
     try {
-      const res = await api.get("/auth/me");
+      const res = await api.get("/api/auth/me");
 
       set({
         user: res.data,
